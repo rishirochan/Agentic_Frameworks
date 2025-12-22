@@ -28,6 +28,7 @@ My first implementation! This notebook explores the **Orchestrator-Worker** mult
 | Worker | `gemini-2.5-flash` | Google |
 | Worker | `openai/gpt-oss-120b` | Groq |
 | Worker | `llama3.2` | Ollama (local) |
+| Synthesizer | `openai/gpt-oss-120b` | Groq |
 
 #### Key Takeaways:
 1. **Richer detail** — The multi-model workflow produced far more raw facts, statistics, and diverse perspectives than a solo model.
