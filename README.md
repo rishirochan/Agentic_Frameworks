@@ -36,6 +36,43 @@ My first implementation! This notebook explores the **Orchestrator-Worker** mult
 
 ---
 
+### 2. AI-VC: Multi-Agent Startup Analyzer
+**Folder:** `ai_vc_debate/`
+
+A multi-agent debate system that simulates a VC investment committee analyzing startups.
+
+#### Architecture
+```
+User Input → [ Optimist + Skeptic] (parallel) → Investment Committee → Decision
+```
+
+#### What I Built:
+- **3 specialized agents** with structured Pydantic outputs
+- **Parallel execution** of Bull/Bear cases for speed
+- **Serper API tool** for real-time startup research
+- **Pydantic guardrail** that blocks INVEST decisions with unresolved risks
+- **Gradio UI** for interactive analysis
+
+#### Agentic Patterns Used:
+| Pattern | Implementation |
+|---------|----------------|
+| Multi-Agent Debate | Opposing Bull vs Bear viewpoints |
+| Parallel Execution | `asyncio.gather()` for simultaneous research |
+| Structured Outputs | Pydantic models with validators |
+| Custom Guardrails | `@model_validator` blocking invalid decisions |
+| Tool Use | `@function_tool` with Serper API |
+| Hierarchical Orchestration | Committee synthesizes worker outputs |
+
+#### Key Guardrail:
+```python
+@model_validator(mode='after')
+def invest_requires_addressed_risks(self):
+    if self.decision == "INVEST" and self.unresolved_risks:
+        raise ValueError("Cannot INVEST with unresolved risks!")
+```
+
+---
+
 ## What's Next
 
 I'll continue adding more agentic patterns and frameworks as I progress through my learning journey. Stay tuned!
