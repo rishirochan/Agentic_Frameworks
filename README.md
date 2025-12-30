@@ -127,12 +127,12 @@ ghostpress/
 - **Auto-delivery** of the completed blog post via email
 
 #### The Syndicate Agents:
-| Agent | Role | Tools |
-|-------|------|-------|
-| Insight Researcher | Market & Trend Analyst ("The Brain") | SerperDevTool |
-| Content Architect | Structural Engineer ("The Skeleton") | — |
-| Creative Storyteller | Lead Copywriter ("The Soul") | — |
-| Delivery Specialist | Email Campaign Manager ("The Logistics") | SendEmailTool |
+| Agent | Role | Tools | LLM |
+|-------|------|-------|-----|
+| Insight Researcher | Market & Trend Analyst ("The Brain") | SerperDevTool | Groq `llama-3.1-70b-versatile` |
+| Content Architect | Structural Engineer ("The Skeleton") | — | Groq `llama-3.1-70b-versatile` |
+| Creative Storyteller | Lead Copywriter ("The Soul") | — | Groq `llama-3.1-70b-versatile` |
+| Delivery Specialist | Email Campaign Manager ("The Logistics") | SendEmailTool | Groq `llama-3.1-70b-versatile` |
 
 #### Agentic Patterns Used:
 | Pattern | Implementation |
