@@ -1,0 +1,89 @@
+research_task:
+  description: >
+    Conduct comprehensive research on {topic} to uncover unique angles and insights.
+    
+    Your research must include:
+    1. Current trends and statistics (with sources where possible)
+    2. High-performing keywords and search intent analysis
+    3. Competitor content gaps - what are others missing?
+    4. "The Hook" - one surprising fact or contrarian take that will grab attention
+    5. Target audience pain points related to {topic}
+    
+    The current year is {current_year}. Prioritize recent, timely information.
+  expected_output: >
+    A structured research brief containing:
+    - 3-5 unique angles not commonly covered
+    - 5-10 high-performing keywords with search intent
+    - Key statistics with approximate dates/sources
+    - One compelling "hook" for the article
+    - Audience pain points to address
+  agent: insight_researcher
+
+outline_task:
+  description: >
+    Using the research brief provided, create a comprehensive blog post outline
+    that maximizes reader engagement and conversions.
+    
+    Your outline must include:
+    1. A compelling H1 headline (with 2-3 alternatives)
+    2. Strategic H2 and H3 subheaders that keep readers scrolling
+    3. Key points to cover under each section
+    4. CTA (Call-to-Action) placements - specify where and what type
+    5. Estimated word count per section
+    
+    Structure the content like a conversion funnel: hook → value → action.
+  expected_output: >
+    A structured outline in the following format:
+    - H1 Headline (with alternatives)
+    - Introduction hook and approach
+    - Section breakdown with H2s, H3s, and key points
+    - CTA placements with suggested copy
+    - Conclusion strategy
+  agent: content_architect
+  context:
+    - research_task
+
+writing_task:
+  description: >
+    Transform the structured outline into a vibrant, engaging blog post about {topic}.
+    
+    Writing requirements:
+    1. Conversational, witty tone - like chatting with a smart friend
+    2. Use the research insights and statistics provided
+    3. Follow the outline structure precisely
+    4. Include all CTA placements as specified
+    5. Aim for high readability (short paragraphs, varied sentence length)
+    6. Use metaphors, analogies, and unexpected turns of phrase
+    
+    The post should feel alive and engaging, not robotic or generic.
+  expected_output: >
+    A complete, publication-ready blog post in Markdown format including:
+    - Compelling headline and meta description
+    - Full article content following the outline
+    - Embedded CTAs as specified
+    - Approximately 1500-2500 words
+  agent: creative_storyteller
+  context:
+    - research_task
+    - outline_task
+
+email_task:
+  description: >
+    Send the completed blog post about {topic} via email.
+    
+    Your task:
+    1. Take the FULL blog post content from the writing task
+    2. Create a compelling subject line for the email
+    3. Format the blog post as a clean, readable HTML email
+    4. Use your send_email tool to deliver the blog post
+    
+    The email should contain the ENTIRE blog post, not just a teaser.
+    Make sure the formatting looks professional when rendered as HTML.
+  expected_output: >
+    Confirmation that the email was sent successfully, including:
+    - The subject line used
+    - Confirmation message from the email tool
+  agent: delivery_specialist
+  context:
+    - writing_task
+

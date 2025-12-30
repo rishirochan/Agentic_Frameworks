@@ -39,11 +39,23 @@ My first implementation! This notebook explores the **Orchestrator-Worker** mult
 ### 2. AI-VC: Multi-Agent Startup Analyzer
 **Folder:** `ai_vc_debate/`
 
-A multi-agent debate system that simulates a VC investment committee analyzing startups.
+A multi-agent debate system that simulates a VC investment committee analyzing startups, using **OpenAISDK**.
 
 #### Architecture
 ```
 User Input → [ Optimist + Skeptic] (parallel) → Investment Committee → Decision
+```
+
+#### Project Structure:
+```
+ai_vc_debate/
+├── models.py        # Pydantic models with guardrail validator
+├── tools.py         # Serper search tool
+├── agents.py        # Optimist, Skeptic, Committee agents
+├── orchestrator.py  # run_vc_debate() function
+├── app.py           # Gradio UI
+├── main.py          # CLI entry point
+└── __init__.py      # Package exports
 ```
 
 #### What I Built:
@@ -71,18 +83,6 @@ def invest_requires_addressed_risks(self):
         raise ValueError("Cannot INVEST with unresolved risks!")
 ```
 
-#### Project Structure:
-```
-ai_vc_debate/
-├── models.py        # Pydantic models with guardrail validator
-├── tools.py         # Serper search tool
-├── agents.py        # Optimist, Skeptic, Committee agents
-├── orchestrator.py  # run_vc_debate() function
-├── app.py           # Gradio UI
-├── main.py          # CLI entry point
-└── __init__.py      # Package exports
-```
-
 #### Key Takeaways:
 1. **Guardrails enable trust** — The Pydantic validator prevents logically invalid outputs (e.g., recommending INVEST while risks remain unaddressed). This is crucial for production AI.
 2. **Debate improves reasoning** — Having opposing agents (Bull vs Bear) forces more thorough analysis than a single model. The Committee must explicitly reconcile conflicting views.
@@ -92,6 +92,67 @@ ai_vc_debate/
 
 ---
 
+### 3. GhostPress: The Syndicate Crew
+**Folder:** `ghostpress/`
+
+A 4-agent content creation pipeline built with **CrewAI** that researches a topic, structures an outline, writes a blog post, and emails the final result.
+
+#### Architecture
+```
+Topic Input → [ Researcher → Architect → Storyteller → Delivery ] (sequential) → Email Sent
+```
+
+#### Project Structure:
+```
+ghostpress/
+├── src/ghostpress/
+│   ├── crew.py           # Crew definition with 4 agents
+│   ├── main.py           # Entry point
+│   ├── config/
+│   │   ├── agents.yaml   # Agent roles, goals, backstories
+│   │   └── tasks.yaml    # Task descriptions and context chains
+│   └── tools/
+│       └── custom_tool.py  # SendEmailTool implementation
+├── output/
+│   ├── blog_post.md      # Generated blog post
+│   └── email_campaign.md # Email confirmation
+└── pyproject.toml        # Dependencies
+```
+
+#### What I Built:
+- **4 specialized agents** in a sequential workflow
+- **SerperDevTool** for real-time research and trend discovery
+- **Custom SendEmailTool** using SendGrid API
+- **Context chaining** where each agent builds on previous outputs
+- **Auto-delivery** of the completed blog post via email
+
+#### The Syndicate Agents:
+| Agent | Role | Tools |
+|-------|------|-------|
+| Insight Researcher | Market & Trend Analyst ("The Brain") | SerperDevTool |
+| Content Architect | Structural Engineer ("The Skeleton") | — |
+| Creative Storyteller | Lead Copywriter ("The Soul") | — |
+| Delivery Specialist | Email Campaign Manager ("The Logistics") | SendEmailTool |
+
+#### Agentic Patterns Used:
+| Pattern | Implementation |
+|---------|----------------|
+| Sequential Process | Each task output feeds into the next |
+| Context Chaining | `context: [previous_task]` in YAML config |
+| Tool Use | Serper for research, SendGrid for delivery |
+| YAML Configuration | Agents and tasks defined declaratively |
+| Custom Tools | `BaseTool` subclass with Pydantic schema |
+
+#### Key Takeaways:
+1. **Sequential chaining is powerful** — Each agent's output becomes the context for the next, creating a coherent pipeline from research to delivery.
+2. **YAML config is maintainable** — Defining agents and tasks in YAML keeps the Python code clean and makes iteration easy.
+3. **Custom tools extend capabilities** — The SendEmailTool integrates SendGrid seamlessly, turning CrewAI into an end-to-end automation system.
+4. **Backstories matter** — Detailed agent backstories (e.g., "veteran journalist with a nose for news") significantly improve output quality.
+5. **CrewAI CLI streamlines workflow** — `crewai create`, `crewai install`, and `crewai run` make project scaffolding and execution simple.
+
+---
+
 ## What's Next
 
 I'll continue adding more agentic patterns and frameworks as I progress through my learning journey. Stay tuned!
+
