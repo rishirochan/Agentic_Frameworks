@@ -71,6 +71,25 @@ def invest_requires_addressed_risks(self):
         raise ValueError("Cannot INVEST with unresolved risks!")
 ```
 
+#### Project Structure:
+```
+ai_vc_debate/
+├── models.py        # Pydantic models with guardrail validator
+├── tools.py         # Serper search tool
+├── agents.py        # Optimist, Skeptic, Committee agents
+├── orchestrator.py  # run_vc_debate() function
+├── app.py           # Gradio UI
+├── main.py          # CLI entry point
+└── __init__.py      # Package exports
+```
+
+#### Key Takeaways:
+1. **Guardrails enable trust** — The Pydantic validator prevents logically invalid outputs (e.g., recommending INVEST while risks remain unaddressed). This is crucial for production AI.
+2. **Debate improves reasoning** — Having opposing agents (Bull vs Bear) forces more thorough analysis than a single model. The Committee must explicitly reconcile conflicting views.
+3. **Structured outputs > free text** — Pydantic models ensure every decision includes required fields like `unresolved_risks` and `risk_mitigations`, making downstream processing reliable.
+4. **Parallel execution is key** — Running Bull/Bear cases simultaneously halves latency without sacrificing quality.
+5. **Tools ground agents in reality** — The Serper search tool prevents hallucination by providing real-time data on funding, competitors, and news.
+
 ---
 
 ## What's Next
