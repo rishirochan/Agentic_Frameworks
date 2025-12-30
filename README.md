@@ -39,11 +39,23 @@ My first implementation! This notebook explores the **Orchestrator-Worker** mult
 ### 2. AI-VC: Multi-Agent Startup Analyzer
 **Folder:** `ai_vc_debate/`
 
-A multi-agent debate system that simulates a VC investment committee analyzing startups.
+A multi-agent debate system that simulates a VC investment committee analyzing startups, using OpenAISDK.
 
 #### Architecture
 ```
 User Input → [ Optimist + Skeptic] (parallel) → Investment Committee → Decision
+```
+
+#### Project Structure:
+```
+ai_vc_debate/
+├── models.py        # Pydantic models with guardrail validator
+├── tools.py         # Serper search tool
+├── agents.py        # Optimist, Skeptic, Committee agents
+├── orchestrator.py  # run_vc_debate() function
+├── app.py           # Gradio UI
+├── main.py          # CLI entry point
+└── __init__.py      # Package exports
 ```
 
 #### What I Built:
@@ -69,18 +81,6 @@ User Input → [ Optimist + Skeptic] (parallel) → Investment Committee → Dec
 def invest_requires_addressed_risks(self):
     if self.decision == "INVEST" and self.unresolved_risks:
         raise ValueError("Cannot INVEST with unresolved risks!")
-```
-
-#### Project Structure:
-```
-ai_vc_debate/
-├── models.py        # Pydantic models with guardrail validator
-├── tools.py         # Serper search tool
-├── agents.py        # Optimist, Skeptic, Committee agents
-├── orchestrator.py  # run_vc_debate() function
-├── app.py           # Gradio UI
-├── main.py          # CLI entry point
-└── __init__.py      # Package exports
 ```
 
 #### Key Takeaways:
