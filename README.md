@@ -37,7 +37,7 @@ My first implementation! This notebook explores the **Orchestrator-Worker** mult
 ---
 
 ### 2. AI-VC: Multi-Agent Startup Analyzer
-**Folder:** `ai_vc_debate/`
+**Folder:** `AIStartupAnalyzer/`
 
 A multi-agent debate system that simulates a VC investment committee analyzing startups, using **OpenAISDK**.
 
@@ -48,7 +48,7 @@ User Input → [ Optimist + Skeptic] (parallel) → Investment Committee → Dec
 
 #### Project Structure:
 ```
-ai_vc_debate/
+AIStartupAnalyzer/
 ├── models.py        # Pydantic models with guardrail validator
 ├── tools.py         # Serper search tool
 ├── agents.py        # Optimist, Skeptic, Committee agents
@@ -93,7 +93,7 @@ def invest_requires_addressed_risks(self):
 ---
 
 ### 3. GhostPress: The Syndicate Crew
-**Folder:** `ghostpress/`
+**Folder:** `GhostPress/`
 
 A 4-agent content creation pipeline built with **CrewAI** that researches a topic, structures an outline, writes a blog post, and emails the final result.
 
