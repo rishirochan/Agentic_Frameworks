@@ -9,7 +9,7 @@ Each notebook represents a hands-on implementation where I experiment with multi
 ## Completed Exercises
 
 ### 1. Orchestrator-Worker Workflow Pattern
-**File:** `orchestrator-worker-workflow.ipynb`
+**Folder:** `OrchestratorWorker/`
 
 My first implementation! This notebook explores the **Orchestrator-Worker** multi-agent design pattern — a powerful approach where a central orchestrator dynamically breaks down complex problems and delegates sub-tasks to specialized worker models.
 
