@@ -208,6 +208,12 @@ PlannerPA/
 | Persistent Memory | AsyncSqliteSaver for cross-session history |
 | Dynamic Context | Current date/time injected into system prompt |
 
+#### Models Used:
+| Role | Model | Provider |
+|------|-------|----------|
+| Worker | `gpt-4o-mini` | OpenAI |
+| Evaluator | `gpt-4o-mini` | OpenAI |
+
 #### Key Features:
 1. **Conflict Detection** — `create_calendar_event` automatically checks for scheduling conflicts before booking
 2. **Mode-Based UI** — Success criteria hidden in Calendar mode, visible in Research/Code modes
