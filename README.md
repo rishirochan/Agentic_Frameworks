@@ -152,6 +152,78 @@ ghostpress/
 
 ---
 
+### 4. PlannerPA: Personal AI Sidekick
+**Folder:** `PlannerPA/`
+
+A multi-modal personal assistant built with **LangGraph** featuring Google Calendar integration, PDF export, and a mode-based UI for scheduling, research, and coding tasks.
+
+#### Architecture
+```
+User Input → [ Worker ⇄ Tools ] → Evaluator → Success/Retry Loop → Response
+```
+
+#### Project Structure:
+```
+PlannerPA/
+├── app.py              # Gradio UI with mode tabs and quick actions
+├── sidekick.py         # LangGraph agent with Worker-Evaluator loop
+├── sidekick_tools.py   # Tool aggregator (browser, search, code, calendar, PDF)
+├── calendar_auth.py    # Google OAuth 2.0 authentication
+├── calendar_tools.py   # CRUD operations with conflict detection
+├── pdf_tools.py        # Markdown-to-PDF conversion with WeasyPrint
+├── styles.css          # Gradio UI styling
+├── pdf_styles.css      # PDF document styling
+├── credentials.json    # Google OAuth credentials (gitignored)
+└── token.json          # OAuth tokens (gitignored)
+```
+
+#### What I Built:
+- **3-mode UI** with conditional layouts (Calendar, Research, Code)
+- **Google Calendar integration** with OAuth 2.0 and conflict detection
+- **Quick action buttons** that auto-execute common calendar queries
+- **PDF export tool** converting markdown to styled PDFs
+- **Persistent memory** using SQLite for conversation history
+- **Self-correction loop** where an Evaluator judges Worker outputs
+
+#### Tools Available:
+| Tool | Purpose | Mode |
+|------|---------|------|
+| `search_calendar_events` | Query events by date | Calendar |
+| `create_calendar_event` | Add events with conflict check | Calendar |
+| `update_calendar_event` | Modify existing events | Calendar |
+| `delete_calendar_event` | Remove events by ID | Calendar |
+| `create_pdf_from_markdown` | Export content to styled PDF | Research |
+| `search` | Serper web search | Research |
+| `wikipedia` | Wikipedia queries | Research |
+| `python_repl` | Execute Python code | Code |
+| Playwright tools | Browser automation | All |
+
+#### Agentic Patterns Used:
+| Pattern | Implementation |
+|---------|----------------|
+| Worker-Evaluator Loop | Evaluator judges if success criteria met |
+| Self-Correction | Worker retries with feedback on rejection |
+| Tool Routing | LLM selects appropriate tool based on intent |
+| Structured Tools | Pydantic schemas for type-safe tool inputs |
+| Persistent Memory | AsyncSqliteSaver for cross-session history |
+| Dynamic Context | Current date/time injected into system prompt |
+
+#### Key Features:
+1. **Conflict Detection** — `create_calendar_event` automatically checks for scheduling conflicts before booking
+2. **Mode-Based UI** — Success criteria hidden in Calendar mode, visible in Research/Code modes
+3. **Quick Add Form** — Structured form for creating events without natural language parsing
+4. **Rich Date Context** — Day of week, formatted date, and timezone injected for accurate scheduling
+
+#### Key Takeaways:
+1. **GCP OAuth is straightforward** — Setting up Google Calendar API with OAuth 2.0 requires creating a project, enabling the API, and downloading credentials — the token refresh flow is handled automatically.
+2. **StructuredTool > JSON strings** — Using Pydantic schemas for tool inputs prevents the LLM from passing malformed arguments.
+3. **Evaluator loops catch errors** — The self-correction pattern ensures incomplete answers get refined before reaching the user.
+4. **Dynamic prompts are essential** — Injecting current date/time solves the "next Tuesday" problem in calendar scheduling.
+5. **Mode-specific UX reduces friction** — Hiding irrelevant fields (like success criteria) makes the interface cleaner for common tasks.
+6. **System deps are a pain** — WeasyPrint requires Pango/Cairo; pure Python libs are more portable but less capable.
+
+---
+
 ## What's Next
 
 I'll continue adding more agentic patterns and frameworks as I progress through my learning journey. Stay tuned!

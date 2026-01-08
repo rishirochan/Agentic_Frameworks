@@ -1,0 +1,41 @@
+# Environment variables
+.env
+
+# Google OAuth credentials (NEVER commit these!)
+credentials.json
+token.json
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+eggs/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Project specific
+sandbox/
+memory.db
+memory.db-shm
+memory.db-wal
+*.log

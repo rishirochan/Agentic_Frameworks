@@ -1,0 +1,13 @@
+.mode-tabs button {
+    font-size: 1.1em !important;
+    padding: 12px 24px !important;
+}
+
+.quick-actions button {
+    margin: 4px !important;
+}
+
+.container {
+    max-width: 900px !important;
+    margin: auto !important;
+}
